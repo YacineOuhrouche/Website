@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="style1.css">
+  <link rel="icon" href="picture/Screenshot 2024-11-22 213930.png" />
+  <script src="https://kit.fontawesome.com/0584cad3b7.js" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    .stats-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      
+      color:#000000;
+      padding: 40px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #000000;
+      padding: 20px;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-icon {
+      font-size: 50px;
+      color: #ff6b81;
+    }
+
+    .stat-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-value {
+      font-size: 36px;
+      font-weight: bold;
+      color: #ff6b81;
+    }
+
+    .stat-label {
+      font-size: 18px;
+      color: #000000;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .stats-container {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+      .stat-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+     #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 5px;
+      background-color: #007bff;
+      width: 0;
+      z-index: 9999;
+    }
+    
+    @keyframes markAnimation {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* Specific sections styles */
+    #about, #portfolio, #contact {
+      position: relative;
+    }
+
+    /* General Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.filter-menu {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
+ 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+/* Button Styles */
+.filter-menu button {
+  background-color: transparent; /* No background */
+  color: #fff; /* Lighter gray text color */
+  font-size: 16px;
+  padding: 8px 16px;
+  border: none; /* Remove the border */
+  cursor: pointer;
+  border-radius: 25px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.filter-menu button:hover {
+  color: #333; /* Slightly darker text on hover */
+  background-color: rgba(0, 0, 0, 0.05); /* Very subtle background change on hover */
+}
+
+.filter-menu button:focus {
+  outline: none; /* Remove focus outline */
+}
+
+/* Active Button Style */
+.filter-menu button.active {
+  color: #222; /* Darker text for active state */
+}
+
+.filter-menu button.active:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Very subtle hover effect when active */
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .filter-menu {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .filter-menu button {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+}
+
+
+    .language-selector {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color:  linear-gradient(to right, #000428, #004e92);
+      border-radius: 5px;
+      padding: 10px;
+      display: flex;
+      gap: 10px;
+      z-index: 1000;
+    }
+  
+    .language-selector button {
+      background-color: #fff;
+      border: none;
+      color: #333;
+      font-size: 16px;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    .language-selector button:hover {
+      background:  #ff004f;
+    }
+  
+    .language-selector button:focus {
+      outline: none;
+    }
+  
+    #header {
+      padding-top: 60px;
+    }
+     /* Footer */
+   footer {
+            background-color: linear-gradient(to right, #e3f2fd, #57a8eb);
+            color:#000000;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 50px;
+        }
+
+        footer p {
+            font-size: 1rem;
+        }
+        /* Contact Section */
+#contact {
+  background: linear-gradient(to right, #e3f2fd, #bbdefb);
+  color: #fff;
+  text-align: center;
+}
+
+.contact-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ADD8E6;
+  border-radius: 20px;
+  padding: 50px;
+  box-shadow:  0 0 30px rgba(118, 105, 105, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.contact-left {
+  flex: 1;
+  min-width: 350px;
+  text-align: left;
+}
+
+.contact-left h2 {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+.contact-left p {
+  font-size: 1.2em;
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.contact-left i {
+  color: #000000;
+  font-size: 1.5em;
+}
+
+.social-icons {
+  margin-top: 20px;
+}
+
+.social-icons a {
+  font-size: 2em;
+  margin: 0 15px;
+  color:  #000000;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #ff6f61;
+  transform: scale(1.2);
+}
+
+.contact-right {
+  flex: 1;
+  min-width: 350px;
+  text-align: left;
+}
+
+.contact-right .input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.contact-right input,
+.contact-right textarea {
+  width: 100%;
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1em;
+  color: #fff;
+  outline: none;
+  transition: 0.3s;
+}
+
+.contact-right input:focus,
+.contact-right textarea:focus {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow:  0 0 30px rgba(118, 105, 105, 0.8);
+}
+
+.contact-right .btn {
+  display: inline-block;
+  width: 100%;
+  padding: 15px 0;
+  background: #a2d5e7;
+  border: none;
+  color: #000000;
+  font-size: 1.3em;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact-right .btn:hover {
+  background: #ff6f61;
+  box-shadow: 0 0 15px rgba(255, 111, 97, 0.8);
+}
+
+@media (max-width: 768px) {
+  .contact-card {
+    flex-direction: column;
+    padding: 30px;
+  }
+  .contact-left,
+  .contact-right {
+    text-align: center;
+  }
+  .contact-right form {
+    text-align: left;
+  }
+}
+#about {
+  background: linear-gradient(to right, #e3f2fd, #bbdefb);
+  padding: 80px 20px;
+  color: #000000;
+  text-align: center;
+}
+
+.about-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #ADD8E6;
+  padding: 60px;
+  box-shadow: 0 0 30px rgba(118, 105, 105, 0.8);
+  backdrop-filter: blur(15px);
+  transition: transform 0.3s ease-in-out;
+  
+}
+
+.about-card:hover {
+  transform: scale(1.05);
+}
+
+.about-left {
+  flex: 1;
+  min-width: 350px;
+  text-align: center;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.about-left img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  transition: transform 0.3s ease-in-out;
+}
+
+.about-left img:hover {
+  transform: scale(1.1);
+}
+
+.about-right {
+  flex: 1;
+  min-width: 350px;
+  text-align: left;
+  padding-left: 30px;
+}
+
+.about-right h2 {
+  font-size: 2.8em;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.about-right p {
+  font-size: 1.3em;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.tab-titles {
+  margin-top: 30px;
+}
+
+.tab-links {
+  font-size: 1.2em;
+  margin-right: 25px;
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.tab-links:hover,
+.tab-links.active-link {
+  color: #000000;
+  background-color:#9acfe1;
+  transform: scale(1.05);
+}
+
+.tab-contents {
+  display: none;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.tab-contents.active-tab {
+  display: block;
+}
+
+.tab-contents ul {
+  list-style: none;
+  padding: 0;
+}
+
+.tab-contents li {
+  font-size: 1.1em;
+  margin: 10px 0;
+}
+
+.tab-contents li span {
+  font-weight: 600;
+  color: #9acfe1;
+}
+
+@media (max-width: 768px) {
+  .about-card {
+    flex-direction: column;
+    padding: 40px;
+  }
+  .about-left,
+  .about-right {
+    text-align: center;
+  }
+  .about-right {
+    padding-left: 0;
+  }
+}
+#header{
+  width: 100%;
+  height: 100vh;
+  
+  background-size:  cover;
+  background-position: center;
+}
+
+.container {
+  padding: 10px 10%;;
+
+}
+
+nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+h1{
+  width: 140px;
+  color: #000000;
+
+}
+
+nav ul li{
+  display: inline-block;
+  list-style: none;
+  margin: 10px 20px;
+
+
+}
+nav ul li a{
+  color: #000000;
+  text-decoration: none;
+  font-size: 18px;
+  position: relative; 
+}
+nav ul li a::after{
+  content: '';
+  width: 0;
+  height: 3px;
+  background:#9acfe1;
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  transition: 0.5s;
+
+}
+
+nav ul li a:hover::after{
+  width: 100%;
+
+}
+
+.header-text{
+  margin-top: 20%;
+  font-size:30px;
+
+}
+
+.header-text h2{
+  font-size: 60px;
+  margin-top:20px
+}
+
+.header-text h2 span{
+  color:#2cbfef;
+}
+
+
+#about{
+  padding: 80px 0;
+  color: #000000;
+
+}
+
+.row{
+  display:flex;
+  justify-content: space-between;
+  flex-wrap:wrap;
+
+}
+
+.about-col-1{
+  flex-basis:35%;
+
+}
+.about-col-1 img{
+  width: 100%;
+  border-radius:15px;
+
+}
+
+.about-col-2{
+  flex-basis:60%;
+}
+
+.sub-title{
+  font-size: 40px;
+ color:#000000;
+ 
+}
+
+.tab-titles{
+  display: flex;
+  margin: 20px 0 40px;
+}
+
+.tab-links{
+  margin-right: 50px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  position:relative;
+
+}
+
+.tab-links::after{
+  content: '';
+  width: 0;
+  height: 3px;
+  background: #ff004f;
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  transition: 0.5s;
+
+}
+
+.tab-links.active-link::after{
+  width: 50%;
+}
+
+.tab-contents ul li{
+  list-style: none;
+  margin: 10px 0;
+
+
+}
+.tab-contents ul li span{
+  color: #ff004f;
+  font-size: 14px;
+}
+
+.tab-contents{
+  display: none;
+}
+
+.tab-contents.active-tab{
+  display: block;
+}
+
+
+
+.library{
+  color: #7CB9E8;
+}
+
+
+
+.contact-right form{
+  width: 100%;
+
+}
+
+form input, form textarea{
+  width: 100%;
+  border: 0;
+  outline: none;
+  background:#ADD8E6;
+  padding: 15px;
+  margin: 15px 0;
+  color: #000000;
+  font-size: 18px;
+  border-radius: 6px;
+}
+nav .fa-solid{
+  display: none;
+}
+
+
+@media only screen and (max-width: 600px){
+  .header-text{
+    margin-top: 100%;
+    font-size: 16px;
+  }
+  .header-text h2{
+    font-size: 30px;
+  }
+  nav .fa-solid{
+    display: block;
+    font-size: 20px;
+  }
+
+  nav ul{
+    background:  #000000;
+    position: fixed;
+    top:0;
+    right: -200px;
+    width: 200px;
+    height: 100vh;
+    padding-top: 50px;
+    z-index: 2;
+    transition: right 0.5s;
+  
+  }
+
+  nav ul li{
+    display: block;
+    margin: 25px;
+
+  }
+  nav ul .fa-solid{
+    position: absolute;
+    top: 25px;
+    cursor: pointer;
+
+  }
+
+  .sub-title{
+    font-size: 40px;
+
+  }
+
+  .about-col-1, .about-col-2{
+    flex-basis: 100%;
+  }
+  .about-col-1{
+    margin-bottom: 30px;
+  }
+  .about-col-1{
+    font-size: 14px;
+
+  }
+  .tab-links{
+    font-size: 16px;
+    margin-right: 20px;
+  }
+
+  .contact-left, .contact-right{
+    flex-basis: 100%;
+
+  }
+
+  .copyright{
+    font-size: 14px;
+
+  }
+}
+  </style>
+</head>
+<body>
+      <!-- Scroll Progress Bar -->
+      <div id="progress-bar"></div>
+  <div class="language-selector">
+    <button onclick="changeLanguage('en')">English</button>
+    <button onclick="changeLanguage('fr')">Français</button>
+  </div>
+  <div id="header">
+    <div class="container"> 
+      <nav>
+        <h1 >Yacine.</h1>
+       
+        <ul id="sidemenu"> 
+          <li><a href="#header" >Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#portfolio" >Portfolio</a></li>
+          <li><a href="#contact" >Contact</a></li>
+          <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
+        </ul>
+        <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+      </nav>
+
+      <div class="header-text">
+        <p data-lang="en">Rising Hardware Specialist</p>
+        <p data-lang="fr">Spécialiste En Électronique</p>
+        <h2 data-lang="en">Hello, I am <span><br> Yacine</span> Ouhrouche </h2>
+        <h2 data-lang="fr">Salut, je suis <span><br>Yacine</span> Ouhrouche </h2>
+        
+      </div>
+    </div>
+  </div>
+
+  <div id="about">
+    <div class="container">
+      <div class="about-card">
+        <div class="about-left">
+          <div class="image-container">
+            <img src="picture/picture.JPG" alt="Your Image">
+          </div>
+        </div>
+        <div class="about-right">
+          <h2 class="sub-title" data-lang="en">About Me</h2>
+          <h2 class="sub-title" data-lang="fr">À propos de moi</h2>
+          <p data-lang="en">I am an Electrical Engineering student passionate about electronics and computer systems. </p>
+          <p data-lang="fr">Je suis étudiant en génie électrique, passionné par l’électronique et les systèmes informatiques. </p>
+          
+          <div class="tab-titles">
+            <p class="tab-links active-link" onclick="opentab('Interests')" data-lang="en">Interests</p>
+            <p class="tab-links" onclick="opentab('Skills')" data-lang="en">Skills</p>
+            <p class="tab-links" onclick="opentab('Software')" data-lang="en">Software</p>
+            <p class="tab-links" onclick="opentab('Interests')" data-lang="fr">Centres d'intérêt</p>
+            <p class="tab-links" onclick="opentab('Skills')" data-lang="fr">Compétences</p>
+            <p class="tab-links" onclick="opentab('Software')" data-lang="fr">Logiciels</p>
+          </div>
+  
+          <!-- Tab Content -->
+          <div class="tab-contents active-tab" id="Interests">
+            <ul>
+              <li><span data-lang="en">Electronics <i class="fa-solid fa-mobile-screen-button"></i></span></li>
+              <li><span data-lang="fr">Électronique <i class="fa-solid fa-mobile-screen-button"></i></span></li>
+              <li><span data-lang="en">Computer Hardware <i class="fa-solid fa-computer"></i></span></li>
+              <li><span data-lang="fr">Matériel informatique <i class="fa-solid fa-computer"></i></span></li>
+              <li><span data-lang="en">Chip Design <i class="fa-solid fa-microchip"></i></span></li>
+              <li><span data-lang="fr">Conception de puces <i class="fa-solid fa-microchip"></i></span></li>
+              <li><span data-lang="en">Autonomous Vehicles <i class="fa-solid fa-car"></i></span></li>
+              <li><span data-lang="fr">Véhicules autonomes <i class="fa-solid fa-car"></i></span></li>
+            </ul>
+          </div>
+          <div class="tab-contents" id="Skills">
+            <div class="skills-graph">
+              <h3 data-lang="en">Skills Graph</h3>
+              <h3 data-lang="fr">Graphique des Compétences</h3>
+              <canvas id="skillsChart" width="400" height="200"></canvas>
+            </div>
+           
+          </div>
+          <div class="tab-contents" id="Software">
+            <ul>
+              <li><span >Altium, KiCad</span> for PCB Design</li>
+              <li><span >Vivado, Logisim</span> for Computer Architecture</li> 
+              <li><span >STM32cubeIDE</span> for Embedded Systems</li>
+              <li><span >Ansys, LTspice</span> for Testing/Verification</li>
+            
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-container">
+ 
+
+    <div class="stat-item">
+      <i class="fas fa-lightbulb stat-icon"></i>
+      <div class="stat-content">
+        <div class="stat-value">50+</div>
+        <div class="stat-label">LeetCode Problems Solved</div>
+       
+      </div>
+    </div>
+  
+    <div class="stat-item">
+      <i class="fas fa-book stat-icon"></i>
+      <div class="stat-content">
+        <div class="stat-value">200+ Hours</div>
+        <div class="stat-label">4 Coursera Courses Completed</div>
+      </div>
+    </div>
+  
+    <div class="stat-item">
+      <i class="fas fa-project-diagram stat-icon"></i>
+      <div class="stat-content">
+        <div class="stat-value">10+</div>
+        <div class="stat-label">Personal Projects Completed</div>
+      </div>
+    </div>
+  </div>
+  <section id="portfolio">
+    <div class="portfolio-header">
+      <h2 data-lang="en">My Portfolio</h2>
+      <h2 data-lang="fr">Mon Portfolio</h2>
+      
+    </div>
+   
+    
+    <!-- Portfolio Categories -->
+    <div class="work-list">
+      <div class="category" data-category="PCB Design">
+        <h3 data-lang="en">PCB Design</h3>
+        <h3 data-lang="fr">Conception de PCB</h3>
+        <div class="work">
+          <img src="picture/Screenshot 2024-12-19 134619.png" alt="Buck Converter">
+          <div class="layer">
+            <h3 data-lang="en">Buck Converter</h3>
+            <h3 data-lang="fr">Convertisseur Buck</h3>
+            <p data-lang="en">A DC-DC converter that converts 12V into 5V.</p>
+            <p data-lang="fr">Un convertisseur DC-DC qui convertit 12V en 5V.</p>
+            <a href="https://yacineouhrouche-portfoli0.my.canva.site/" data-lang="en" target="_blank" class="link">More Details</a>
+            <a href="https://yacineouhrouche-portfoli0.my.canva.site/" data-lang="fr" target="_blank" class="link">Plus de Détails</a>
+          </div>
+        </div>
+        
+        <div class="work">
+          <img src="picture/Screenshot 2024-12-19 142504.png" alt="Voltage Regulator">
+          <div class="layer">
+            <h3 data-lang="en">Voltage Regulator</h3>
+            <h3 data-lang="fr">Régulateur de Tension</h3>
+            <p data-lang="en">A device able to keep a steady voltage of 5V.</p>
+            <p data-lang="fr">Un dispositif capable de maintenir une tension stable de 5V.</p>
+            <a href="https://yacineouhrouche-portfoli0.my.canva.site/" data-lang="en" target="_blank" class="link">More Details</a>
+            <a href="https://yacineouhrouche-portfoli0.my.canva.site/" data-lang="fr" target="_blank" class="link">Plus de Détails</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="category" data-category="Machine Learning">
+        <h3 data-lang="en" >Machine Learning</h3>
+        <h3 data-lang="fr">Apprentissage Automatique</h3>
+        <div class="work">
+          <img src="picture/Screenshot 2024-12-23 190247.png" alt="Diabetes Predictor">
+          <div class="layer">
+            <h3 data-lang="en">Diabetes Predictor</h3>
+            <h3 data-lang="fr">Prédicteur de Diabète</h3>
+            <p data-lang="en">Developed a machine learning-based prediction with an svm model to predict the likelihood of a person having diabetes based on medical attributes, including age, BMI, blood pressure, and insulin level.</p>
+            <p data-lang="fr">Développement d'une prédiction basée sur l'apprentissage automatique avec un modèle SVM pour prédire la probabilité qu'une personne ait du diabète en fonction des attributs médicaux, tels que l'âge, l'IMC, la pression artérielle et le niveau d'insuline.</p>
+            <a href="https://github.com/YacineOuhrouche/Machine_Learning_Projects" data-lang="en" target="_blank" class="link">Go to GitHub</a>
+            <a href="https://github.com/YacineOuhrouche/Machine_Learning_Projects" data-lang="fr" target="_blank" class="link">Aller sur GitHub</a>
+          </div>
+        </div>
+
+        <div class="work">
+          <img src="picture/Screenshot 2025-01-16 152353.png" alt="House Price Predictor">
+          <div class="layer">
+            <h3 data-lang="en">House Price Predictor</h3>
+            <h3 data-lang="fr">Prédicteur de Prix de Maison</h3>
+            <p data-lang="en">Developed machine learning model with a linear regression that can predict the price of a house based on various features, such as location, size, number of rooms, amenities, and more.</p>
+            <p data-lang="fr">Développement d'un modèle d'apprentissage automatique avec une régression linéaire capable de prédire le prix d'une maison en fonction de divers critères tels que l'emplacement, la taille, le nombre de chambres, les commodités, etc.</p>
+            <a href="https://github.com/YacineOuhrouche/Machine_Learning_Projects" data-lang="en"target="_blank" class="link">Go to GitHub</a>
+            <a href="https://github.com/YacineOuhrouche/Machine_Learning_Projects" data-lang="fr"target="_blank" class="link">Aller sur GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="category" data-category="Network">
+        <h3 data-lang="en">Network</h3>
+        <h3 data-lang="fr">Réseau</h3>
+        <div class="work">
+          <img src="picture/Screenshot 2025-01-16 153325.png" alt="TCP Group-Chat">
+          <div class="layer">
+            <h3 data-lang="en">TCP Group-Chat</h3>
+            <h3 data-lang="fr">Discussion de Groupe TCP</h3>
+            <p data-lang="en">Multiple users can join the chat room, send and receive messages in real-time, and ensure that all participants are updated with the latest messages.</p>
+            <p data-lang="fr">Plusieurs utilisateurs peuvent rejoindre la salle de discussion, envoyer et recevoir des messages en temps réel, et s'assurer que tous les participants sont mis à jour avec les derniers messages.</p>
+            <a href="https://github.com/YacineOuhrouche/Network_Projects" target="_blank" data-lang="en" class="link">Go to GitHub</a>
+            <a href="https://github.com/YacineOuhrouche/Network_Projects" target="_blank" data-lang="fr " class="link">Aller sur GitHub</a>
+          </div>
+        </div>
+        
+        <div class="work">
+          <img src="picture/Screenshot 2025-01-16 152104.png" alt="Port Scanner">
+          <div class="layer">
+            <h3 data-lang="en">Port Scanner</h3>
+            <h3 data-lang="fr">Analyseur de Ports</h3>
+            <p data-lang="en">Design a Port Scanner that allows users to scan and analyze open ports on a server or network.</p>
+            <p data-lang="fr">Concevoir un analyseur de ports permettant aux utilisateurs de scanner et analyser les ports ouverts sur un serveur ou un réseau.</p>
+            <a href="https://github.com/YacineOuhrouche/Network_Projects" data-lang="en" target="_blank" class="link">Go to GitHub</a>
+            <a href="https://github.com/YacineOuhrouche/Network_Projects" data-lang="fr" target="_blank" class="link">Aller sur GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="category" data-category="Coding">
+        <h3 data-lang="en">Coding</h3>
+        <h3 data-lang="fr">Programmation</h3>
+        <div class="work">
+          <img src="picture/Screenshot 2025-03-19 185215.png" alt="Stock Tracker">
+          <div class="layer">
+            <h3 data-lang="en">Stock Market Tracker</h3>
+            <a href="https://capable-sawine-7f4972.netlify.app/" data-lang="en"target="_blank" class="link">Take A Look</a>
+            <a href="https://capable-sawine-7f4972.netlify.app/" data-lang="fr " target="_blank" class="link">Jetez un œil</a>
+          </div>
+        </div>
+
+        <div class="work">
+          <img src="picture/Screenshot 2025-03-19 185159.png" alt="Stock Tracker">
+          <div class="layer">
+            <h3 data-lang="en">Translator</h3>
+            <a href="https://bejewelled-mermaid-64f617.netlify.app//" data-lang="en"target="_blank" class="link">Take A Look</a>
+            <a href="https://bejewelled-mermaid-64f617.netlify.app/" data-lang="fr " target="_blank" class="link">Jetez un œil</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="category" data-category="Logic Circuit Design">
+        <h3 data-lang="en">Logic Circuit Design</h3>
+        <h3 data-lang="fr">Conception de Circuits Logiques</h3>
+        <div class="work">
+          <img src="picture/Screenshot 2024-11-05 180246.png" alt="4-bit ALU">
+          <div class="layer">
+            <h3 data-lang="en">4-bit ALU</h3>
+            <h3 data-lang="fr">ALU 4 bits</h3>
+            <p data-lang="en">Designed a 4-bit ALU capable of performing basic arithmetic and logical operations based on control signals.</p>
+            <p data-lang="fr">Conception d'un ALU 4 bits capable d'effectuer des opérations arithmétiques et logiques de base en fonction des signaux de contrôle.</p>
+            <a href="https://github.com/YacineOuhrouche/Circuits_Projects/tree/main/HDL" data-lang="en" target="_blank" class="link">Go to GitHub</a>
+            <a href="https://github.com/YacineOuhrouche/Circuits_Projects/tree/main/HDL" data-lang="fr"target="_blank" class="link">Plus de Détails</a>
+          </div>
+        </div>
+
+        <div class="work">
+          <img src="picture/Screenshot 2024-11-05 162116.png" alt="4-bit Register">
+          <div class="layer">
+            <h3 data-lang="en">4-bit Register</h3>
+            <h3 data-lang="fr">Registre 4 bits</h3>
+            <p data-lang="en">Created a register capable of storing a 4-bit binary value with a clocked load input for storing data on the rising clock edge.</p>
+            <p data-lang="fr">Création d'un registre capable de stocker une valeur binaire 4 bits avec une entrée de chargement synchronisée pour stocker les données sur le front montant de l'horloge.</p>
+            <a href="https://github.com/YacineOuhrouche/Circuits_Projects/tree/main/HDL" data-lang="en"target="_blank" class="link">Go to GitHub</a>
+            <a href="https://github.com/YacineOuhrouche/Circuits_Projects/tree/main/HDL" data-lang="fr"target="_blank" class="link">Plus de Détails</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="category" data-category="Cybersecurity">
+        <h3 data-lang="en">Cybersecurity</h3>
+        <h3 data-lang="fr">Cybersécurité</h3>
+        <div class="work">
+          <img src="picture/Screenshot 2025-01-17 130029.png" alt="Phishing Link Detector">
+          <div class="layer">
+            <h3 data-lang="en">Phishing Link Detector</h3>
+            <h3 data-lang="fr">Détecteur de Liens Phishing</h3>
+            <p data-lang="en">This project demonstrates the creation of a tool that identifies potentially harmful phishing links to enhance online security by analyzing URLs.</p>
+            <p data-lang="fr">Ce projet démontre la création d'un outil qui identifie les liens de phishing potentiellement dangereux afin d'améliorer la sécurité en ligne en analysant les URL.</p>
+            <a href="https://github.com/YacineOuhrouche/Cybersecurity_Projects" data-lang="en"class="link" target="_blank">Go to GitHub</a>
+            <a href="https://github.com/YacineOuhrouche/Cybersecurity_Projects" data-lang="fr"class="link" target="_blank">Aller sur GitHub</a>
+          </div>
+        </div>
+
+        <div class="work">
+          <img src="picture/Screenshot 2025-01-16 153745.png" alt="Message Encryptor">
+          <div class="layer">
+            <h3 data-lang="en">Message Encryptor</h3>
+            <h3 data-lang="fr">Cryptage de Message</h3>
+            <a href="https://github.com/YacineOuhrouche/Cybersecurity_Projects" data-lang="en"target="_blank" class="link">Go to GitHub</a>
+            <a href="https://github.com/YacineOuhrouche/Cybersecurity_Projects" data-lang="fr"target="_blank" class="link">Aller sur GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="category" data-category="Signal Processing">
+        <h3 data-lang="en">Signal Processing</h3>
+        <h3 data-lang="fr">Signal </h3> 
+        <div class="work">
+          <img src="picture/Screenshot 2025-01-30 112838.png" alt="Phishing Link Detector">
+          <div class="layer">
+            <h3 data-lang="en">Noise Cancellation</h3>
+            <h3 data-lang="fr">suppression du bruit</h3>
+            <p data-lang="en">
+              A tool that substract unwanted noise</p>
+            <p data-lang="fr">Un outil qui enlève les bruits indésirables</p>
+            <a href="https://github.com/YacineOuhrouche/Digital_Signal_Processing_Projects" data-lang="en"class="link" target="_blank">Go to GitHub</a>
+            <a href="https://github.com/YacineOuhrouche/Digital_Signal_Processing_Projects" data-lang="fr"class="link" target="_blank">Aller sur GitHub</a>
+          </div>
+        </div>
+
+        <div class="work">
+          <img src="picture/Screenshot 2025-01-30 112112.png" alt="Message Encryptor">
+          <div class="layer">
+            <h3 data-lang="en">Audio Equilizer</h3>
+            <h3 data-lang="fr">
+              Égaliseur audio</h3>
+              <p data-lang="en">
+                Coded a tool that allows users to adjust the balance of different frequency components of an audio signal.</p>
+                <p data-lang="fr">
+                  Un outil qui permet aux utilisateurs d'ajuster la balance des différentes composantes de fréquence d'un signal audio.</p>
+            <a href="https://github.com/YacineOuhrouche/Digital_Signal_Processing_Projects" data-lang="en"target="_blank" class="link">Go to GitHub</a>
+            <a href="https://github.com/YacineOuhrouche/Digital_Signal_Processing_Projects" data-lang="fr"target="_blank" class="link">Aller sur GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="category" data-category="Other">
+        <h3 data-lang="en">Other </h3>
+        <h3 data-lang="fr">Autres</h3>
+        <div class="work">
+          <img src="picture/thumbnail_IMG_6433.jpg" alt="Phishing Link Detector">
+          <div class="layer">
+            <h3 data-lang="en">Plant Data Analyzer</h3>
+            <h3 data-lang="fr"> Analyseur de données sur une fleur</h3>
+            <p data-lang="en">A device that collects data to moderate the plant's health.</p>
+            <p data-lang="fr">Un appareil qui collecte des données pour modérer la santé de la plante.</p>
+            <a href="https://yacineouhrouche-portfoli0.my.canva.site/" target="_blank" data-lang="en" class="link">More Details</a>
+            <a href="https://yacineouhrouche-portfoli0.my.canva.site/" target="_blank" data-lang="fr" class="link">Plus De Détails</a>
+            
+          </div>
+        </div>
+
+        <div class="work">
+          <img src="picture/Screenshot 2025-01-29 130656.png" alt="Message Encryptor">
+          <div class="layer">
+            <h3 >BlackJack</h3>
+            
+
+            <a href="https://warm-jelly-2efa39.netlify.app/" target="_blank" class="link" data-lang="en">Take A Look</a>
+            <a href="https://warm-jelly-2efa39.netlify.app/" target="_blank" class="link" data-lang="fr">Jetez un œil</a>
+            
+          </div>
+        </div>
+      </div>
+    
+
+      
+
+    </div>
+    
+    
+   
+    </div>
+ <!-- Contact Section -->
+ <div id="contact">
+    <div class="container">
+      <div class="contact-card">
+        <div class="contact-left">
+          <h2 class="sub-title" data-lang="en">Get in Touch</h2>
+          <h2 class="sub-title"data-lang="fr">Entrer en Contact</h2>
+
+          <p><i class="fa-solid fa-envelope"></i> yacine.ouhrouche04@hotmail.com</p>
+          <p><i class="fa-solid fa-phone"></i> +1 (581)-234-9293</p>
+          
+          <div class="social-icons">
+            <a href="https://www.linkedin.com/in/yacineouhrouche" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/YacineOuhrouche" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-github"></i>
+            </a>
+          </div>
+        </div>
+  
+        <div class="contact-right">
+          <form action="https://formspree.io/f/movjjadr" method="POST">
+            <div class="input-group">
+              <input data-lang="en" type="text" name="Name" placeholder="Your Name" required>
+              <input data-lang="fr" type="text" name="Name" placeholder="Nom" required>
+            </div>
+            <div class="input-group">
+              <input data-lang="en" type="email" name="Email" placeholder="Your Email" required>
+              <input data-lang="fr" type="email" name="Email" placeholder=" Email" required>
+
+            </div>
+            <div class="input-group">
+              <textarea data-lang="en" name="Message" rows="5" placeholder="Your Message"></textarea>
+              <textarea data-lang="fr" name="Message" rows="5" placeholder=" Message"></textarea>
+            </div>
+            <button data-lang="en" type="submit" class="btn">Send Message</button>
+            <button data-lang="fr" type="submit" class="btn">Envoyer </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+   <!-- Footer -->
+   <footer>
+    <p>&copy; 2025 Yacine Ouhrouche. All Rights Reserved.</p>
+</footer>
+    
+  </section>
+
+  <script>
+    function changeLanguage(lang) {
+      const elements = document.querySelectorAll('[data-lang]');
+      elements.forEach((element) => {
+        if (element.dataset.lang !== lang) {
+          element.style.display = 'none';
+        } else {
+          element.style.display = 'block';
+        }
+      });
+    }
+
+    changeLanguage('en');  // Default to English
+  </script>
+   <script> 
+    var tablinks = document.getElementsByClassName("tab-links");
+ var tabcontents = document.getElementsByClassName("tab-contents");
+ 
+ function opentab(tabname) {
+   for (tablink of tablinks) {
+     tablink.classList.remove("active-link");
+   }
+   for (tabcontent of tabcontents) {
+     tabcontent.classList.remove("active-tab");
+   }
+   event.currentTarget.classList.add("active-link");
+   document.getElementById(tabname).classList.add("active-tab");
+ }
+ 
+    </script>
+     <script>
+        var ctx = document.getElementById('skillsChart').getContext('2d');
+        var skillsChart = new Chart(ctx, {
+          type: 'radar', // Radar chart type
+          data: {
+            labels: ['PCB Design', 'Computer Architecture','Embedded Systems', 'C++','Python', 'Verilog', 'Javascript' ], // Skill labels
+            datasets: [{
+              label: 'Skill Level',
+              data: [85, 82, 75, 80, 85, 90, 70], // Skill levels (0-100)
+              backgroundColor: 'rgba(0, 123, 255, 0.2)', // Background color of the chart
+              borderColor: 'rgba(0, 123, 255, 1)', // Border color of the chart
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              r: {
+                min: 0,
+                max: 100,
+                ticks: {
+                  stepSize: 20
+                }
+              }
+            },
+            elements: {
+              line: {
+                tension: 0.4 // Line tension (smoothness)
+              }
+            }
+          }
+        });
+      </script>
+      <script>
+        // Scroll Progress Bar Functionality
+        window.addEventListener('scroll', function() {
+          const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const scrollPosition = window.scrollY;
+          const progress = (scrollPosition / scrollHeight) * 100;
+          document.getElementById('progress-bar').style.width = progress + '%';
+        });
+      </script>
+  
+</body>
+</html>
