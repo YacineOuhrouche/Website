@@ -18,7 +18,7 @@
       <p>->I’m an aspiring hardware engineer passionate about electronics.  
 
       <p>->Electrical Engineering @UWaterloo </p>
-        <p>->Currently exploring  <b>Power Electronics, PCB Design, Analog Electronics, and Electric Vehicle Systems.</p>
+        <p>->Currently exploring  <b>Power Electronics, PCB Design, Analog Electronics, and Electric Vehicle Systems.</b></p>
     </section>
   
 
@@ -221,22 +221,11 @@
     </div>
   </footer>
   <script>
-   // =======================
-// 1. Smooth scrolling for anchor links
-// =======================
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(link.getAttribute('href'));
-      target?.scrollIntoView({ behavior: 'smooth' });
-    });
-  });
-});
 
-// =======================
-// 2. Typing animation for heading
-// =======================
+
+
+// Typing animation for heading
+
 const typeWriter = (element, text, speed = 100) => {
   let i = 0;
   element.innerHTML = '';
@@ -253,16 +242,7 @@ window.addEventListener('load', () => {
   const heading = document.querySelector('h1');
   heading && typeWriter(heading, heading.textContent, 80);
 
-  // Dynamic greeting
-  const greeting = document.querySelector('.tagline');
-  if (greeting) {
-    const hour = new Date().getHours();
-    greeting.textContent = hour < 12
-      ? "Good morning! Welcome to my corner of the internet ☀️"
-      : hour < 18
-        ? "Good afternoon! Welcome to my corner of the internet ☀️"
-        : "Good evening! Welcome to my corner of the internet 🌙";
-  }
+  
 
   // Theme toggle setup
   createThemeToggle?.();
@@ -334,31 +314,10 @@ document.addEventListener('DOMContentLoaded', () => {
   modal?.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('show'); });
 });
 
-// =======================
-// 4. Intersection Observer for fade-in animations
-// =======================
-document.addEventListener('DOMContentLoaded', () => {
-  const sections = document.querySelectorAll('section');
-  const observer = new IntersectionObserver(
-    entries => entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    }),
-    { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-  );
 
-  sections.forEach(section => {
-    section.style.opacity = '0';
-    section.style.transform = 'translateY(30px)';
-    section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(section);
-  });
-});
 
 // =======================
-// 5. Email validation (example for contact form)
+// 5. Email validation 
 // =======================
 const validateEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
